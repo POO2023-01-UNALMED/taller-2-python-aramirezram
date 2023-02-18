@@ -17,21 +17,18 @@ class Auto:
         self.motor=motor
         self.registro=registro
     def cantidadAsientos(self):
-        x=0
+        Auto.cantidadCreados=0
         for i in self.asientos:
-            if type(i)==type(Asiento):
-                x=x+1
-        return x
+            if isinstance(i,Asiento):
+                Auto.cantidadCreados=Auto.cantidadCreados+1
+        return Auto.cantidadCreados
     def verificarIntegridad(self):
         legit=True
         for i in self.asientos:
-            try:
-                if i.registro!=self.registro!=self.motor.registro:
+            if isinstance(i, Asiento):
+                if i.registro!=self.registro or self.registro!=self.motor.registro or i.registro!=self.motor.registro :
                     legit=False
                     return "Las piezas no son originales"
-                    break    
-            except:
-                continue
         if legit==True:
             return "Auto original"
         
@@ -45,7 +42,5 @@ class Motor:
     def asignarTipo(self,tipo):
         if tipo in ["electrico","gasolina"]:
             self.tipo=tipo
- 
-        
             
     
